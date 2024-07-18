@@ -1,3 +1,4 @@
+using System.Data;
 using Desafio.Interfaces;
 using Desafio.Service;
 using Desafio.Services;
@@ -5,18 +6,20 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<IProdutoRepository, ProdutoRepository>();
+var configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.Development.json")
+    .Build(); 
+
+builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddSingleton<ITokenService, TokenService>();
 builder.Services.AddSingleton<IUsuarioService, UsuarioService>();
 
-var configuration = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json")
-    .Build();
-
 var conexao = configuration.GetValue<string>("ConnectionStringSQL");
+builder.Services.AddScoped<IDbConnection>(serviceProvider => new SqlConnection(conexao));
 
 var key = Encoding.ASCII.GetBytes(configuration.GetValue<string>("SecretJWT"));
 

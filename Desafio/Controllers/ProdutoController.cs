@@ -37,12 +37,13 @@ namespace Desafio.Controllers
         /// <summary>
         /// endpoint para pesquisar todos os produtos
         /// </summary>
+        /// /// <param name="nome">Nome do produto a ser pesquisado</param>
         /// <returns>Todos os produtos cadastrados</returns>
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult PesquisarProduto()
+        public IActionResult PesquisarProduto(string nome)
         {
-            return Ok(_produtoRepository.PesquisarProduto());
+            return Ok(_produtoRepository.PesquisarProduto(nome));
         }
 
         /// <summary>

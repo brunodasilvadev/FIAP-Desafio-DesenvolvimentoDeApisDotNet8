@@ -25,7 +25,7 @@ namespace Desafio.Service
 
         public Produto PesquisarProduto(string nome)
         {
-            var pesquisa = @"SELECT * FROM PRODUTO WHERE NOME = '%@NOME%'";
+            var pesquisa = @"SELECT * FROM PRODUTO WHERE NOME = @NOME";
 
             var produto = _dbConnection.Query<Produto>(pesquisa, new { NOME = nome }).SingleOrDefault();
 
