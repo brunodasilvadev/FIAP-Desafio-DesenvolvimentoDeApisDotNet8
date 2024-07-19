@@ -21,11 +21,11 @@ namespace Desafio.Controllers
         }
 
         /// <summary>
-        /// Endpoint para inserir um novo produto
-        /// somente administradores podem inserir um novo produto
+        /// Endpoint para inserir um novo produto.
+        /// Somente administradores podem inserir um novo produto.
         /// </summary>
-        /// <param name="produto">Dados do novo produto</param>
-        /// <returns>O id do produto inserido</returns>
+        /// <param name="produto">Dados do novo produto.</param>
+        /// <returns>O id do produto inserido.</returns>
         [HttpPost]
         [Authorize(Roles = PermissaoSistema.Administrador)]
         public IActionResult InserirProduto(Produto produto)
@@ -35,10 +35,10 @@ namespace Desafio.Controllers
         }
 
         /// <summary>
-        /// endpoint para pesquisar todos os produtos
+        /// endpoint para pesquisar todos os produtos.
         /// </summary>
-        /// /// <param name="nome">Nome do produto a ser pesquisado</param>
-        /// <returns>Todos os produtos cadastrados</returns>
+        /// /// <param name="nome">Nome do produto a ser pesquisado.</param>
+        /// <returns>Todos os produtos cadastrados.</returns>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult PesquisarProduto(string nome)
@@ -47,11 +47,11 @@ namespace Desafio.Controllers
         }
 
         /// <summary>
-        /// endpoint para deletar um produto específico
-        /// somente administradores podem inserir um novo produto
+        /// endpoint para deletar um produto específico.
+        /// Somente administradores podem inserir um novo produto.
         /// </summary>
-        /// <param name="id">id do produto que deseja deletar</param>
-        /// <returns>Sem conteúdo</returns>
+        /// <param name="id">id do produto que deseja deletar.</param>
+        /// <returns>Sem conteúdo.</returns>
         [HttpDelete]
         [Authorize(Roles = PermissaoSistema.Administrador)]
         public IActionResult DeletarProduto(int id)

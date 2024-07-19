@@ -7,6 +7,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Data.SqlClient;
+using System.Reflection;
+using Desafio.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +17,8 @@ var configuration = new ConfigurationBuilder()
     .Build(); 
 
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
-builder.Services.AddSingleton<ITokenService, TokenService>();
-builder.Services.AddSingleton<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioRepository>();
 
 var conexao = configuration.GetValue<string>("ConnectionStringSQL");
 builder.Services.AddScoped<IDbConnection>(serviceProvider => new SqlConnection(conexao));
@@ -46,6 +48,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API para manutenir produtos", Version = "v1" });
+    
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization Header - utilizado com Bearer Authentication. \r\n\r\n" +

@@ -19,7 +19,7 @@ namespace Desafio.Controllers
         }
 
         /// <summary>
-        /// Endpoint de geração de tokem
+        /// Endpoint de geração de token
         /// </summary>
         /// <param name="usuario">dados do usuário para geração do token</param>
         /// <returns></returns>
